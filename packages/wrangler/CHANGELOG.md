@@ -1,5 +1,30 @@
 # wrangler
 
+## 2.10.0
+
+### Minor Changes
+
+- [#2717](https://github.com/cloudflare/workers-sdk/pull/2717) [`c5943c9f`](https://github.com/cloudflare/workers-sdk/commit/c5943c9fe54e8bcf9ee1bf8ca992d2f8b84360a1) Thanks [@mrbbot](https://github.com/mrbbot)! - Upgrade `miniflare` to [`2.12.0`](https://github.com/cloudflare/miniflare/releases/tag/v2.12.0), including support for R2 multipart upload bindings, the `nodejs_compat` compatibility flag, D1 fixes and more!
+
+### Patch Changes
+
+- [#2624](https://github.com/cloudflare/workers-sdk/pull/2624) [`882bf592`](https://github.com/cloudflare/workers-sdk/commit/882bf592fa3a16a8a020808f70ef936bc7f87209) Thanks [@CarmenPopoviciu](https://github.com/CarmenPopoviciu)! - Add wasm support in `wrangler pages publish`
+
+  Currently it is not possible to import `wasm` modules in either Pages
+  Functions or Pages Advanced Mode projects.
+
+  This commit caries out work to address the aforementioned issue by
+  enabling `wasm` module imports in `wrangler pages publish`. As a result,
+  Pages users can now import their `wasm` modules withing their Functions
+  or `_worker.js` files, and `wrangler pages publish` will correctly
+  bundle everything and serve these "external" modules.
+
+* [#2683](https://github.com/cloudflare/workers-sdk/pull/2683) [`68a2a19e`](https://github.com/cloudflare/workers-sdk/commit/68a2a19ec962aeeb34059e1e98d088e021048739) Thanks [@mrbbot](https://github.com/mrbbot)! - Fix internal middleware system to allow D1 databases and `--test-scheduled` to be used together
+
+- [#2609](https://github.com/cloudflare/workers-sdk/pull/2609) [`58ac8a78`](https://github.com/cloudflare/workers-sdk/commit/58ac8a783b95c2c884781e5c8af675fe8036644b) Thanks [@dario-piotrowicz](https://github.com/dario-piotrowicz)! - fix: make sure that the pages publish --no-bundle flag is correctly recognized
+
+* [#2696](https://github.com/cloudflare/workers-sdk/pull/2696) [`4bc78470`](https://github.com/cloudflare/workers-sdk/commit/4bc784706193e24b7a92a19c0ac76eaa7ddcb1c6) Thanks [@rozenmd](https://github.com/rozenmd)! - fix: don't throw an error when omitting preview_database_id, warn instead
+
 ## 2.9.1
 
 ### Patch Changes
@@ -95,7 +120,7 @@
         Note: Run this command with the environment variable NO_D1_WARNING=true to hide this message
 
         For example: `export NO_D1_WARNING=true && wrangler <YOUR COMMAND HERE>`
-  
+
   --------------------
   🚧 D1 is currently in open alpha and is not recommended for production data and traffic
   🚧 Please report any bugs to https://github.com/cloudflare/workers-sdk/issues/new/choose
@@ -120,46 +145,45 @@
   └────────────┴─────────────────────┴───────────────────┘
   ```
 
+**After:**
 
-  **After:**
-
-  ```bash
-  rozenmd@cflaptop test1 % npx wrangler d1 execute test --command="select * from customers" --json
-  [
-    {
-      "results": [
-        {
-          "CustomerID": 1,
-          "CompanyName": "Alfreds Futterkiste",
-          "ContactName": "Maria Anders"
-        },
-        {
-          "CustomerID": 4,
-          "CompanyName": "Around the Horn",
-          "ContactName": "Thomas Hardy"
-        },
-        {
-          "CustomerID": 11,
-          "CompanyName": "Bs Beverages",
-          "ContactName": "Victoria Ashworth"
-        },
-        {
-          "CustomerID": 13,
-          "CompanyName": "Bs Beverages",
-          "ContactName": "Random Name"
-        }
-      ],
-      "success": true,
-      "meta": {
-        "duration": 1.662519000004977,
-        "last_row_id": null,
-        "changes": null,
-        "served_by": "primary-xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.db3",
-        "internal_stats": null
+```bash
+rozenmd@cflaptop test1 % npx wrangler d1 execute test --command="select * from customers" --json
+[
+  {
+    "results": [
+      {
+        "CustomerID": 1,
+        "CompanyName": "Alfreds Futterkiste",
+        "ContactName": "Maria Anders"
+      },
+      {
+        "CustomerID": 4,
+        "CompanyName": "Around the Horn",
+        "ContactName": "Thomas Hardy"
+      },
+      {
+        "CustomerID": 11,
+        "CompanyName": "Bs Beverages",
+        "ContactName": "Victoria Ashworth"
+      },
+      {
+        "CustomerID": 13,
+        "CompanyName": "Bs Beverages",
+        "ContactName": "Random Name"
       }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 1.662519000004977,
+      "last_row_id": null,
+      "changes": null,
+      "served_by": "primary-xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.db3",
+      "internal_stats": null
     }
-  ]
-  ```
+  }
+]
+```
 
 ## 2.8.1
 
